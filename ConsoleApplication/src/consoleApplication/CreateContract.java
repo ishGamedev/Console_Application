@@ -1,5 +1,7 @@
 package consoleApplication;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import SerializableObjects.ContractRequest;
@@ -68,7 +70,6 @@ public class CreateContract {
 			System.out.println("4. Custom");
 			
 			userInput = scString.nextLine();
-			System.out.println(userInput);
 			switch(userInput) {
 			case"1":
 				contractRequest.typeOfContract = "Basic";
@@ -99,6 +100,10 @@ public class CreateContract {
 		System.out.println("1. Yes");
 		System.out.println("2. No");
 		contractRequest.amount = amountToPay;
+		
+		//Storing Date
+		LocalDate startDate = LocalDate.now();
+		contractRequest.contractRequestInitiatedDate = startDate.format(DateTimeFormatter.ofPattern("dd MM uuuu"));
 		
 		userInput = scString.nextLine();
 		if(userInput.equalsIgnoreCase("Yes") || userInput.equals("1")) {

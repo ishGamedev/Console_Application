@@ -55,24 +55,27 @@ public class SearchForPeople {
 			//When visiting profiles we will be staying in the same page and will be calling the "Search for People" function
 			//so the last updated element will be popped out and assigned to the lastElement integer. To make sure the stack and lastElement Integer is not updated for the same page
 			if(firstElementInPreviousFilterPage.size()>0)lastElementInFilterPage = firstElementInPreviousFilterPage.pop();
-			DisplayProfile.displayProfileFn(LogInPage.userList.get(convertedInt-1)); 
+			DisplayProfile.displayProfileFn(LogInPage.freeLancerList.get(convertedInt-1)); 
 		}
 		scInt.close();
 	}
 	
 	public static void showListOfPeopleFn() {
+		if(isFilterOn) {
+			System.out.println("Filter Applied '.' To Remove Filter");
+		}
 		System.out.println("--------------------------------------------------------");
 		if(!isFilterOn) {
 			//Formula to find the first element given page No and now of rows per page.(This will only work for normal search mode)
 			int start = (numberOfRowsPerPage * pageNo),end = start + numberOfRowsPerPage;
 			
 			//If the start and number of rows in this page exits our total List Size we will clamp it to the last element in the list
-			if(end > LogInPage.userList.size()) end = LogInPage.userList.size();
+			if(end > LogInPage.freeLancerList.size()) end = LogInPage.freeLancerList.size();
 			
 			//Printing
 			for(int i = start;i<end;i++) {
 				System.out.print(i+1 + ".");
-				LogInPage.userList.get(i).printContentsForSearch();
+				LogInPage.freeLancerList.get(i).printContentsForSearch();
 			}
 		}
 		else {
@@ -99,16 +102,16 @@ public class SearchForPeople {
 			//A separate variable index is created to check with end
 			index = start;
 		firstElementInPreviousFilterPage.add(start);
-		if(end > LogInPage.userList.size()) end = LogInPage.userList.size();
+		if(end > LogInPage.freeLancerList.size()) end = LogInPage.freeLancerList.size();
 		
 		switch(userFilterChoice) {
 		 //Case 1
 		 	case"Language":
-				for(int i = start;i<LogInPage.userList.size();i++) {//Iterating profiles
-					for(int j = 0; j<LogInPage.userList.get(i).languagesKnownObjects.size();j++) {//Iterating all languages in that profile
-						if(LogInPage.userList.get(i).languagesKnownObjects.get(j).language.equalsIgnoreCase(userChoiceInFilter)) {
+				for(int i = start;i<LogInPage.freeLancerList.size();i++) {//Iterating profiles
+					for(int j = 0; j<LogInPage.freeLancerList.get(i).languagesKnownObjects.size();j++) {//Iterating all languages in that profile
+						if(LogInPage.freeLancerList.get(i).languagesKnownObjects.get(j).language.equalsIgnoreCase(userChoiceInFilter)) {
 							System.out.print(i+1 + ".");
-							LogInPage.userList.get(i).printContentsForSearch();
+							LogInPage.freeLancerList.get(i).printContentsForSearch();
 							index++;//index will be only appended if we find a match
 							break;//this break is used to break from the current User class.
 						}
@@ -123,10 +126,10 @@ public class SearchForPeople {
 			
 			//Case 2
 			case"Profession":
-				for(int i = start;i<LogInPage.userList.size();i++) {
-					if(LogInPage.userList.get(i).profession.equalsIgnoreCase(userChoiceInFilter)) {
+				for(int i = start;i<LogInPage.freeLancerList.size();i++) {
+					if(LogInPage.freeLancerList.get(i).profession.equalsIgnoreCase(userChoiceInFilter)) {
 						System.out.print(i+1 + ".");
-						LogInPage.userList.get(i).printContentsForSearch();
+						LogInPage.freeLancerList.get(i).printContentsForSearch();
 						index++;
 					}
 					if(index>=end) {
@@ -138,10 +141,10 @@ public class SearchForPeople {
 				
 			//Case 3
 			case"Country":
-				for(int i = start;i<LogInPage.userList.size();i++) {
-					if(LogInPage.userList.get(i).country.equalsIgnoreCase(userChoiceInFilter)) {
+				for(int i = start;i<LogInPage.freeLancerList.size();i++) {
+					if(LogInPage.freeLancerList.get(i).country.equalsIgnoreCase(userChoiceInFilter)) {
 						System.out.print(i+1 + ".");
-						LogInPage.userList.get(i).printContentsForSearch();
+						LogInPage.freeLancerList.get(i).printContentsForSearch();
 						index++;
 					}
 					if(index>=end) {
@@ -152,11 +155,11 @@ public class SearchForPeople {
 				break;
 			//Case 4
 			case"Skill":
-				for(int i = start;i<LogInPage.userList.size();i++) {//Iterating profiles
-					for(int j = 0; j<LogInPage.userList.get(i).skillsObjects.size();j++) {//Iterating all Skills in that profile
-						if(LogInPage.userList.get(i).skillsObjects.get(j).skill.equalsIgnoreCase(userChoiceInFilter)) {
+				for(int i = start;i<LogInPage.freeLancerList.size();i++) {//Iterating profiles
+					for(int j = 0; j<LogInPage.freeLancerList.get(i).skillsObjects.size();j++) {//Iterating all Skills in that profile
+						if(LogInPage.freeLancerList.get(i).skillsObjects.get(j).skill.equalsIgnoreCase(userChoiceInFilter)) {
 							System.out.print(i+1 + ".");
-							LogInPage.userList.get(i).printContentsForSearch();
+							LogInPage.freeLancerList.get(i).printContentsForSearch();
 							index++;//index will be only appended if we find a match
 							break;//this break is used to break from the current User class.
 						}
@@ -175,7 +178,7 @@ public class SearchForPeople {
 	//Responsible for Switching pages
 	public static void updatePage(char choice) throws Exception {
 		//Calculating the Max no of pages cause in normal search the user can visit last page from the first page like a circle
-		double maxNoOfPages =  Math.ceil(LogInPage.userList.size()/(double)numberOfRowsPerPage);
+		double maxNoOfPages =  Math.ceil(LogInPage.freeLancerList.size()/(double)numberOfRowsPerPage);
 		
 		
 		if(choice == '>') {
@@ -188,7 +191,7 @@ public class SearchForPeople {
 			//Filter Mode
 			else {
 				lastElementInFilterPage+=1;//adding 1 to the last element of the previous page will give us the first element if the next page
-				if(lastElementInFilterPage >= LogInPage.userList.size()) lastElementInFilterPage = 0;
+				if(lastElementInFilterPage >= LogInPage.freeLancerList.size()) lastElementInFilterPage = 0;
 			}
 		}
 		else {

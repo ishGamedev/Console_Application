@@ -33,62 +33,11 @@ public class InboxManager {
 		MainMenu.showMainMenuFn();
 	}
 	
-	//Called from "DisplayProfile" function in "DisplayProfile" class
-	public static void storeMessage(User sender,User reciever) throws Exception{
-		Message message = new Message();
-		
-		Scanner scString = new Scanner(System.in);
-		String usersInput = "";
-		
-		System.out.println("Enter the title for this message: ");
-		usersInput = scString.nextLine();
-		message.title = usersInput;
-		
-		
-		message.sender = sender.name;
-	    
-	    System.out.println("Enter the message: ");
-		usersInput = scString.nextLine();
-		
-		message.content = usersInput;
-		message.senderProfile = sender;
-		
-		LocalDateTime dateTime = LocalDateTime.now();
-		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("HH:mm:ss dd-MMM-yyyy");
-		String formattedDate = dateTime.format(myFormatObj);
-		
-	    message.timeDate = formattedDate;
-
-		reciever.inbox.messages.add(message);
-		LogInPage.writeObject();
-	}
 	
-	
-	private static void displayMessages(Inbox inbox) throws Exception{
-		
-		if(inbox.messages.size()<=0) {
-			System.out.println("\nInbox is Empty \n");
-			MainMenu.showMainMenuFn();
-			return;
-		}
-		
-		Scanner scInt = new Scanner(System.in);
-		
-		for(int i = inbox.messages.size()-1;i>=0;i--) {
-			System.out.println(i+1 + ". "+inbox.messages.get(i).title);
-		}
-		System.out.println("Enter the message number to view: ");
-		System.out.println("0 Exit");
-		int userChoice = scInt.nextInt();
-		if(userChoice == 0) inboxManagerFn(inbox);
-		
-		showSpecificMessage(inbox,inbox.messages.get(userChoice-1),userChoice-1);
-	}
-	
+	//APPOINTMENT
 	private static void displayAppointments(Inbox inbox) throws Exception{
 		if(inbox.appointmentRequests.size()<=0) {
 			System.out.println("\nYou don't have any pending appiontments\n");
-			MainMenu.showMainMenuFn();
 			return;
 		}
 		
@@ -196,6 +145,60 @@ public class InboxManager {
 	    inbox.appointmentRequests.get(index).senderProfile.inbox.messages.add(message);
 	}
 	
+	
+	//MESSAGE
+	
+	//Called from "DisplayProfile" function in "DisplayProfile" class
+	public static void storeMessage(User sender,User reciever) throws Exception{
+		Message message = new Message();
+		
+		Scanner scString = new Scanner(System.in);
+		String usersInput = "";
+		
+		System.out.println("Enter the title for this message: ");
+		usersInput = scString.nextLine();
+		message.title = usersInput;
+		
+		
+		message.sender = sender.name;
+	    
+	    System.out.println("Enter the message: ");
+		usersInput = scString.nextLine();
+		
+		message.content = usersInput;
+		message.senderProfile = sender;
+		
+		LocalDateTime dateTime = LocalDateTime.now();
+		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("HH:mm:ss dd-MMM-yyyy");
+		String formattedDate = dateTime.format(myFormatObj);
+		
+	    message.timeDate = formattedDate;
+	
+		reciever.inbox.messages.add(message);
+		LogInPage.writeObject();
+	}
+
+		
+	private static void displayMessages(Inbox inbox) throws Exception{
+		
+		if(inbox.messages.size()<=0) {
+			System.out.println("\nInbox is Empty \n");
+			return;
+		}
+		
+		Scanner scInt = new Scanner(System.in);
+		
+		for(int i = inbox.messages.size()-1;i>=0;i--) {
+			System.out.println(i+1 + ". "+inbox.messages.get(i).title);
+		}
+		System.out.println("Enter the message number to view: ");
+		System.out.println("0 Exit");
+		int userChoice = scInt.nextInt();
+		if(userChoice == 0) inboxManagerFn(inbox);
+		
+		showSpecificMessage(inbox,inbox.messages.get(userChoice-1),userChoice-1);
+	}
+		
 	private static void showSpecificMessage(Inbox inbox,Message message,int index) throws Exception{
 		message.printMessage();
 		
@@ -214,8 +217,10 @@ public class InboxManager {
 			case "2":
 				deleteMessage(inbox,index);
 				displayMessages(inbox);
+				break;
 			case"3":
 				displayMessages(inbox);
+				break;
 		}
 		
 	}

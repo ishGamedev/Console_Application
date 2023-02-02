@@ -100,9 +100,9 @@ public class BookAppointment {
 		userInput = scString.nextLine();
 		appointmentRequest.description = userInput;
 		
-		appointmentRequest.year = AppointmentTimeSuggestion.availableDays[chosenDate].substring(0, 4);
-		appointmentRequest.month = AppointmentTimeSuggestion.availableDays[chosenDate].substring(5,7);
-		appointmentRequest.date = AppointmentTimeSuggestion.availableDays[chosenDate].substring(8,10);
+		appointmentRequest.date = AppointmentTimeSuggestion.availableDays[chosenDate].substring(0,2);
+		appointmentRequest.month = AppointmentTimeSuggestion.availableDays[chosenDate].substring(3,5);
+		appointmentRequest.year = AppointmentTimeSuggestion.availableDays[chosenDate].substring(6,10);
 		
 		appointmentRequest.startTime = String.valueOf(startTime);
 		appointmentRequest.endTime = String.valueOf(endTime);
@@ -144,7 +144,7 @@ public class BookAppointment {
 	public static void printResultFn(ArrayList<ArrayList<Float[]>> listToPrint) {
 		int index = 1;
 		System.out.println("\n");
-		System.out.println("YYYY-MM-DD");
+		System.out.println("Dd-MM-YYYY");
 		for(int i = 0;i<listToPrint.size();i++) {
 			System.out.println(AppointmentTimeSuggestion.availableDays[i]);
 			for(int j = 0;j<listToPrint.get(i).size();j++) {

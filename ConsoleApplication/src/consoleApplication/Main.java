@@ -1,5 +1,6 @@
 package consoleApplication;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -10,9 +11,14 @@ import java.util.Scanner;
 
 public class Main {
 	
+	//GitHub token => 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
 	public static void main(String[] args) throws Exception {
 		LogInPage.showLoginPageFn();
 		
+		LocalDate date = LocalDate.now();
+		String s = date.format(DateTimeFormatter.ofPattern("dd-MM-uuuu"));
+		
+		System.out.println(s);
 		
 		//Calendar.calendarFn();
 		//LogInPage.onlyReadForDeveloping();

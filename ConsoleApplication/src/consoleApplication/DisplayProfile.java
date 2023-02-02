@@ -13,14 +13,13 @@ public class DisplayProfile {
 		Scanner scInt = new Scanner(System.in);
 		System.out.println("Name: " + profile.name);
 		System.out.println("Profession: "+profile.profession);
-		int experience = calculateExperience(profile.workingFrom,profile.workingTo);
-		System.out.println("Working for the past "+experience+" years");
 		System.out.println("MobileNumber: "+profile.mobileNumber);
 		System.out.println("Location: "+profile.country);
 		profile.printEducation();
 		profile.printLanguagesKnown();
 		profile.printSkills();
 		profile.printGigs();
+		
 		
 		char choice = 'A';
 		
@@ -51,14 +50,6 @@ public class DisplayProfile {
 		scInt.close();
 		
 	}
-	
-	private static int calculateExperience(int exp1,int exp2) {
-		
-		return exp2-exp1;
-	}
-	
-	
-	
 }
 
 

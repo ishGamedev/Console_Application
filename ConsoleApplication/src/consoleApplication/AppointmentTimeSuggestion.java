@@ -24,7 +24,7 @@ public class AppointmentTimeSuggestion {
 			int index = 0;
 			int days = 0;
 			while(index<3) {
-				String tempDate = today.plusDays(days).format(DateTimeFormatter.ISO_DATE);
+				String tempDate = today.plusDays(days).format(DateTimeFormatter.ofPattern("dd-MM-uuuu"));
 				freeTimesForOneDay(user1,user2,tempDate,durationForMeeting);
 				index = finalResults.size();
 				days++;
@@ -39,8 +39,8 @@ public class AppointmentTimeSuggestion {
 	
 			
 			for(int i = 0;i<user1.inbox.acceptedAppointments.size();i++) {
-				String tempDate = user1.inbox.acceptedAppointments.get(i).year+"-"+user1.inbox.acceptedAppointments.get(i).month+"-"+
-									user1.inbox.acceptedAppointments.get(i).date;
+				String tempDate = user1.inbox.acceptedAppointments.get(i).date+"-"+user1.inbox.acceptedAppointments.get(i).month+"-"+
+									user1.inbox.acceptedAppointments.get(i).year;
 				if(tempDate.equals(date)) {
 					arrayList1.add(Float.parseFloat(user1.inbox.acceptedAppointments.get(i).startTime));
 					arrayList1.add(Float.parseFloat(user1.inbox.acceptedAppointments.get(i).endTime));
@@ -51,8 +51,8 @@ public class AppointmentTimeSuggestion {
 			int arrayIterator = 0;
 			float[][] acceptedAppointments1 = new float[arrayList1.size()/2][2];
 			for(int i = 0;i<arrayList1.size();i+=2) {
-				acceptedAppointments1[arrayIterator][0] = hourToDecimal(arrayList1.get(i));
-				acceptedAppointments1[arrayIterator][1] = hourToDecimal(arrayList1.get(i+1));
+				acceptedAppointments1[arrayIterator][0] = (float) Math.ceil(hourToDecimal(arrayList1.get(i)));
+				acceptedAppointments1[arrayIterator][1] = (float) Math.ceil(hourToDecimal(arrayList1.get(i+1)));
 				arrayIterator++;
 			}
 			

@@ -13,7 +13,6 @@ public class User implements Serializable{
 	
 	//Group them in a different object called Basic Information
 	String mobileNumber,name,profession,description,country,password;
-	int workingFrom,workingTo;
 	float checkInTime,checkOutTime;
 	boolean willWorkOnWeekends;
 	Job jobObject;
@@ -23,6 +22,10 @@ public class User implements Serializable{
 	ArrayList<String> appointments = new ArrayList<String>();
 	//////////////////////////////////
 	
+	boolean registeredAsAFreelancer;
+	boolean inFreelancerMode;
+	int userId;
+	
 	ServiceOffers[] serviceOffersArray = new ServiceOffers[4];
 	Inbox inbox = new Inbox();
 	Wallet wallet = new Wallet();
@@ -30,6 +33,8 @@ public class User implements Serializable{
 	
 	public User(String _mobileNumber) {
 		mobileNumber = _mobileNumber;
+		
+		checkInTime = 9;checkOutTime = 18;
 	}
 	
 	public User(User profile) {
@@ -50,12 +55,14 @@ public class User implements Serializable{
 		password = profile.password;
 		mobileNumber  = profile.mobileNumber;
 		profession = profile.profession;
-		workingFrom = profile.workingFrom;
-		workingTo = profile.workingTo;
 		country = profile.country;
 		languagesKnownObjects = profile.languagesKnownObjects;
 		educationObjects = profile.educationObjects;
 		skillsObjects = profile.skillsObjects;
+		
+		inFreelancerMode = profile.inFreelancerMode;
+		registeredAsAFreelancer = profile.registeredAsAFreelancer;
+		userId = profile.userId;
 		
 		checkInTime = 9;checkOutTime = 18;
 	}
@@ -84,7 +91,7 @@ public class User implements Serializable{
 	//METHODS RESPONSIBLE FOR PRINTING PROFILE INFORMATIONS WHILE DISPLAYING PROFILES
 	//*********************************************************************************************
 	public  void printContentsForSearch() {
-		System.out.printf("%-20s  %-20s %d-%d %n",name,profession,workingFrom,workingTo);
+		System.out.printf("%-20s  %-20s %n",name,profession);
 	}
 	
 	public void printAppointment() {

@@ -12,33 +12,52 @@ public class ContractManager {
 		String choice = "0"; //each function has their own Integer choice variable
 		Scanner scInt = new Scanner(System.in);
 		do {
-			System.out.println("1. Current Contracts as a Client");
-			System.out.println("2. Current Contracts as a FreeLancer");
-			System.out.println("3. Create new Contract");
-			System.out.println("4. Show Contract Requests");
-			System.out.println("0. Exit");
-			
-			choice = scInt.next();
-			
-			switch(choice) {
+			//FreeLancer
+			if(LogInPage.currentProfile.inFreelancerMode) {
+				System.out.println("1. Current Contracts as a FreeLancer");
+				System.out.println("2. Show Contract Requests");
+				System.out.println("0. Exit");
 				
-				case "1":
-					showContractAsAClient();
-					break;
-				case "2":		
-					showContractAsAFreeLancer();
-					break;
+				choice = scInt.next();
 				
-				case "3":
-					CreateContract.createContractfn();
-					break;
+				switch(choice) {
 				
-				case"4":
-					displayContractRequests(LogInPage.currentProfile.contractContainer);
+					case "1":		
+						showContractAsAFreeLancer();
+						break;
 					
-				case "0":
-					MainMenu.showMainMenuFn();
-					break;
+					case"2":
+						displayContractRequests(LogInPage.currentProfile.contractContainer);
+						choice = "0";
+						break;
+						
+					case "0":
+						break;
+				}
+			}
+			
+			//Client
+			else {
+				System.out.println("1. Current Contracts as a Client");
+				System.out.println("2. Create new Contract");
+				System.out.println("0. Exit");
+				
+				choice = scInt.next();
+				
+				switch(choice) {
+					
+					case "1":
+						showContractAsAClient();
+						break;
+					
+					case "2":
+						CreateContract.createContractfn();
+						choice = "0";
+						break;
+		
+					case "0":
+						break;
+				}
 			}
 			
 		}while(!choice.equals("0"));
@@ -59,9 +78,9 @@ public class ContractManager {
 			System.out.println(i+1 + ". "+contractContainer.contractRequests.get(i).typeOfContract+" offer From "+
 					contractContainer.contractRequests.get(i).client.getName()+"  "+contractContainer.contractRequests.get(i).amount+"$");
 		}
-		
-		System.out.println("Enter the Contract Request number to view: ");
+
 		System.out.println("0 Exit");
+		System.out.println("Enter the Contract Request number to view: ");
 		int userChoice = scInt.nextInt();
 		if(userChoice == 0) MainMenu.showMainMenuFn();
 		
@@ -106,24 +125,37 @@ public class ContractManager {
 	}
 	
 	private static void showContractAsAClient() {
+		Scanner scInt = new Scanner(System.in);
+		int index = 0;
 		if(LogInPage.currentProfile.contractContainer.clientContracts.size()<=0) {
 			System.out.println("\nNo Current Contracts as a Client\n");
 			return;
 		}
 			
 		for(int i = 0;i<LogInPage.currentProfile.contractContainer.clientContracts.size();i++) {
-			System.out.println(LogInPage.currentProfile.contractContainer.clientContracts.get(i));
+			System.out.print(i+1+". ");
+			LogInPage.currentProfile.contractContainer.clientContracts.get(i).printOneLineContractClient();
 		}
+		
+		System.out.println("Enter the Contract Number to view: ");
+		index = scInt.nextInt();
+		LogInPage.currentProfile.contractContainer.clientContracts.get(index-1).printFullContract();
 	}
 	
 	private static void showContractAsAFreeLancer() {
+		Scanner scInt = new Scanner(System.in);
+		int index = 0;
 		if(LogInPage.currentProfile.contractContainer.freelancerContracts.size()<=0) {
 			System.out.println("\nNo Current Contracts as a FreeLancer\n");
 			return;
 		}
 		
 		for(int i = 0;i<LogInPage.currentProfile.contractContainer.freelancerContracts.size();i++) {
-			System.out.println(LogInPage.currentProfile.contractContainer.freelancerContracts.get(i));
+			System.out.print(i+1+". ");
+			LogInPage.currentProfile.contractContainer.freelancerContracts.get(i).printOneLineContractFreelancer();
 		}
+		System.out.println("Enter the Contract Number to view: ");
+		index = scInt.nextInt();
+		LogInPage.currentProfile.contractContainer.freelancerContracts.get(index-1).printFullContract();
 	}
 }

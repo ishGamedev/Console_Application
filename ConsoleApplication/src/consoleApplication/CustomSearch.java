@@ -18,18 +18,18 @@ public class CustomSearch {
 			
 			for(int i = 0;i<displayedIds.size();i++) {
 				if(crValue.charAt(0)-'0' == displayedIds.get(i)) {
-					DisplayProfile.displayProfileFn(LogInPage.userList.get(displayedIds.get(i)-1));
+					DisplayProfile.displayProfileFn(LogInPage.freeLancerList.get(displayedIds.get(i)-1));
 				}
 			}
 
 			displayedIds.removeAll(displayedIds);
 			
-			for(int i = 0;i<LogInPage.userList.size();i++) {
-				if(LogInPage.userList.get(i).name.length()>=currentLetters) {
-					if(crValue.equalsIgnoreCase(LogInPage.userList.get(i).name.substring(0, currentLetters))||
-							crValue.equalsIgnoreCase(LogInPage.userList.get(i).name)) {
+			for(int i = 0;i<LogInPage.freeLancerList.size();i++) {
+				if(LogInPage.freeLancerList.get(i).name.length()>=currentLetters) {
+					if(crValue.equalsIgnoreCase(LogInPage.freeLancerList.get(i).name.substring(0, currentLetters))||
+							crValue.equalsIgnoreCase(LogInPage.freeLancerList.get(i).name)) {
 						System.out.print(i+1 + ".");
-						LogInPage.userList.get(i).printContentsForSearch();
+						LogInPage.freeLancerList.get(i).printContentsForSearch();
 						displayedIds.add(i+1);
 					}				
 				}

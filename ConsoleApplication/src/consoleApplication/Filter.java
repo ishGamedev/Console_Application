@@ -25,29 +25,29 @@ public class Filter {
 		switch(filterType){
 			case 1:
 				userFilterChoice = "Language";
-				for(int i = 0;i<LogInPage.userList.size();i++) {
-					for(int j = 0;j<LogInPage.userList.get(i).languagesKnownObjects.size();j++) {
-						availableChoicesSet.add(LogInPage.userList.get(i).languagesKnownObjects.get(j).language);
+				for(int i = 0;i<LogInPage.freeLancerList.size();i++) {
+					for(int j = 0;j<LogInPage.freeLancerList.get(i).languagesKnownObjects.size();j++) {
+						availableChoicesSet.add(LogInPage.freeLancerList.get(i).languagesKnownObjects.get(j).language);
 					}
 				}
 				break;
 			case 2:
 				userFilterChoice = "Profession";
-				for(int i = 0;i<LogInPage.userList.size();i++) {
-					availableChoicesSet.add(LogInPage.userList.get(i).profession);
+				for(int i = 0;i<LogInPage.freeLancerList.size();i++) {
+					availableChoicesSet.add(LogInPage.freeLancerList.get(i).profession);
 				}
 				break;
 			case 3:
 				userFilterChoice = "Country";
-				for(int i = 0;i<LogInPage.userList.size();i++) {
-					availableChoicesSet.add(LogInPage.userList.get(i).country);
+				for(int i = 0;i<LogInPage.freeLancerList.size();i++) {
+					availableChoicesSet.add(LogInPage.freeLancerList.get(i).country);
 				}
 				break;
 			case 4:
 				userFilterChoice = "Skill";
-				for(int i = 0;i<LogInPage.userList.size();i++) {
-					for(int j = 0;j<LogInPage.userList.get(i).skillsObjects.size();j++) {
-						availableChoicesSet.add(LogInPage.userList.get(i).skillsObjects.get(j).skill);
+				for(int i = 0;i<LogInPage.freeLancerList.size();i++) {
+					for(int j = 0;j<LogInPage.freeLancerList.get(i).skillsObjects.size();j++) {
+						availableChoicesSet.add(LogInPage.freeLancerList.get(i).skillsObjects.get(j).skill);
 					}
 				}
 				break;
